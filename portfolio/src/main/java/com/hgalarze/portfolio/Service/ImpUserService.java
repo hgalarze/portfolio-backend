@@ -48,12 +48,6 @@ public class ImpUserService implements IUserService {
         String userOfChange = "Admin";
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
-        user.setFirstName(modifiedUser.getFirstName());
-        user.setLastName(modifiedUser.getLastName());
-        user.setAge(modifiedUser.getAge());
-        user.setEmail(modifiedUser.getEmail());
-        user.setPassword(modifiedUser.getPassword());
-        user.setAvatarUrl(modifiedUser.getAvatarUrl());
         user.setUpdatedBy(userOfChange);
         user.setUpdatedOn(currentTimestamp);
 
