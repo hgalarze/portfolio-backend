@@ -1,5 +1,6 @@
 package com.hgalarze.portfolio.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,8 @@ import com.hgalarze.portfolio.Repository.IUserRepository;
 @Service
 public class ImpUserService implements IUserService {
 
-    @Autowired IUserRepository iUserRepository;
+    @Autowired
+    IUserRepository iUserRepository;
 
     @Override
     public List<User> getAll() {
@@ -28,17 +30,49 @@ public class ImpUserService implements IUserService {
 
     @Override
     public void create(User user) {
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        String userOfChange = "Admin";
+
+        user.setDeleted(false);
+        user.setCreatedBy(userOfChange);
+        user.setCreatedOn(currentTimestamp);
+        user.setUpdatedBy(userOfChange);
+        user.setUpdatedOn(currentTimestamp);
+
         iUserRepository.save(user);
     }
 
     @Override
-    public void update(User user) {
+    public void update(Long id, User modifiedUser) {
+        User user = this.getById(id);
+        String userOfChange = "Admin";
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+        user.setFirstName(modifiedUser.getFirstName());
+        user.setLastName(modifiedUser.getLastName());
+        user.setAge(modifiedUser.getAge());
+        user.setEmail(modifiedUser.getEmail());
+        user.setPassword(modifiedUser.getPassword());
+        user.setAvatarUrl(modifiedUser.getAvatarUrl());
+        user.setUpdatedBy(userOfChange);
+        user.setUpdatedOn(currentTimestamp);
+
         iUserRepository.save(user);
     }
 
     @Override
     public void delete(Long id) {
-        iUserRepository.deleteById(id);
+        User user = this.getById(id);
+        String userOfChange = "Admin";
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+        user.setDeleted(true);
+        user.setDeletedBy(userOfChange);
+        user.setDeletedOn(currentTimestamp);
+        user.setUpdatedBy(userOfChange);
+        user.setUpdatedOn(currentTimestamp);
+
+        iUserRepository.save(user);
     }
-    
+
 }
