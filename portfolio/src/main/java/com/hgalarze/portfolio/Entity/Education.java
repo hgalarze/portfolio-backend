@@ -2,14 +2,13 @@ package com.hgalarze.portfolio.Entity;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -26,6 +25,9 @@ public class Education {
     @Column(name = "id")
     private Long Id;
 
+    // @Column(name = "profile_id")
+    // private Long ProfileId;
+
     @Column(name = "title")
     private String Title;
 
@@ -41,7 +43,7 @@ public class Education {
     @Column(name = "to_date")
     private Date To;
 
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = Profile.class)
-    @JoinColumn(name = "id")
+    @ManyToOne
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private Profile Profile;
 }

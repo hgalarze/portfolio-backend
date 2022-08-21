@@ -9,10 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.Id;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,8 +29,8 @@ public class Profile {
     @Column(name = "id")
     private Long Id;
 
-    @Column(name = "profile_id")
-    private Long ProfileId;
+    // @Column(name = "profile_id")
+    // private Long ProfileId;
 
     @Column(name = "first_name")
     private String FirstName;
@@ -70,16 +71,19 @@ public class Profile {
     @Column(name = "facebook_url")
     private String Facebook;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "Profile")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "profile_id")
     private User User;
 
-    // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy =
-    // "Experience")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Experience> Experiences;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Education> Studies;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Skill> Skills;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Project> Projects;
 }

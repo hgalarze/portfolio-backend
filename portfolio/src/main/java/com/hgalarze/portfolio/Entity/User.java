@@ -29,8 +29,8 @@ public class User {
     @Column(name = "id")
     private Long Id;
 
-    @Column(name = "profiles_id")
-    private Long ProfileId;
+    // @Column(name = "profile_id")
+    // private Long ProfileId;
 
     @Column(name = "username")
     private String Username;

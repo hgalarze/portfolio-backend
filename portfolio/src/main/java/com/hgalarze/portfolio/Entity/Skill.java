@@ -1,15 +1,13 @@
 package com.hgalarze.portfolio.Entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.Id;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,8 +23,8 @@ public class Skill {
     @Column(name = "id")
     private Long Id;
 
-    @Column(name = "profile_id")
-    private Long ProfileId;
+    // @Column(name = "profile_id")
+    // private Long ProfileId;
 
     @Column(name = "title")
     private String Title;
@@ -37,7 +35,7 @@ public class Skill {
     @Column(name = "icon")
     private String Icon;
 
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = Profile.class)
-    @JoinColumn(name = "id")
+    @ManyToOne
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private Profile Profile;
 }
